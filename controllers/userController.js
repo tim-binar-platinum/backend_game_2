@@ -72,7 +72,9 @@ module.exports = {
   register: async (req, res) => {
     const {username, password, name, birth_place, gender, email} = req.body;
     const checkUser = await models.user_game.findOne({
-      username 
+      where: {
+        username
+      } 
     })
     if(checkUser){
       res.status(400).json({
