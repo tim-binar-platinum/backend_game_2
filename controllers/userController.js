@@ -71,6 +71,14 @@ module.exports = {
 
   register: async (req, res) => {
     const {username, password, name, birth_place, gender, email} = req.body;
+    const checkUser = await models.user_game.findOne({
+      username 
+    })
+    if(checkUser){
+      res.status(400).json({
+        message: 'username has been used'
+      })
+    } else {
     console.log(req.body)
     const hash = bcrypt.hashSync(password, 10)
     console.log(hash)
@@ -86,6 +94,7 @@ module.exports = {
       message: 'user created',
       data: addUser
     })
+    }
   },
 
   delete: async (req, res) => {
